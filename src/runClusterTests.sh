@@ -56,4 +56,4 @@ fi
 echo "Starting the cluster tests"
 cd $SRC_DIR
 chmod +x $WORK_DIR/runClusterTests.java && cp logback.xml $WORK_DIR/logback.xml
-jbang $WORK_DIR/runClusterTests.java
+./jbang $WORK_DIR/runClusterTests.java
