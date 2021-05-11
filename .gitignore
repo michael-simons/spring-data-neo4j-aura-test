@@ -1,0 +1,15 @@
+target/
+work/
+spring-data-neo4j/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### Visual Studio Code ###
+.vscode
+
+### Misc ###
+.DS_Store
