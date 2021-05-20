@@ -18,10 +18,10 @@ project {
 	vcsRoot(SDNRepo)
 	params {
 		add {
-			param("env.SDN_NEO4J_URL", "")
+			param("env.SDN_NEO4J_URL", "%dep.CloudRoot_Neo4jCloud_Neo4jCloudSetupIntegrationTest.CONNECTIONURL%")
 		}
 		add {
-			password("env.SDN_NEO4J_PASSWORD", "")
+			password("env.SDN_NEO4J_PASSWORD", "%dep.CloudRoot_Neo4jCloud_Neo4jCloudSetupIntegrationTest.PASSWORD%")
 		}
 	}
 }
@@ -33,6 +33,16 @@ object Build : BuildType({
 		root(DslContext.settingsRoot.id!!, "-:.teamcity", "+:src => bin")
 		root(SDNRepo, "+:. => work/spring-data-neo4j")
 		cleanCheckout = true
+	}
+
+	dependencies {
+		add(AbsoluteId("CloudRoot_Neo4jCloud_Neo4jCloudSetupIntegrationTest")) {
+			snapshot {
+				reuseBuilds = ReuseBuilds.NO
+				onDependencyFailure = FailureAction.FAIL_TO_START
+				synchronizeRevisions = false
+			}
+		}
 	}
 
 	steps {
