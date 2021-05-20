@@ -1,8 +1,6 @@
 package patches.buildTypes
 
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.ExecBuildStep
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.exec
 import jetbrains.buildServer.configs.kotlin.v2019_2.ui.*
 
 /*
@@ -11,17 +9,14 @@ To apply the patch, change the buildType with id = 'Build'
 accordingly, and delete the patch script.
 */
 changeBuildType(RelativeId("Build")) {
-    expectSteps {
-        exec {
-            name = "Run SDN cluster tests."
-            path = "./bin/runClusterTests.sh"
-            dockerImage = "openjdk:11"
-            dockerRunParameters = "--volume /var/run/docker.sock:/var/run/docker.sock"
+    dependencies {
+        add(AbsoluteId("CloudRoot_Neo4jCloud_Neo4jCloudSetupIntegrationTest")) {
+            snapshot {
+                reuseBuilds = ReuseBuilds.NO
+                onDependencyFailure = FailureAction.FAIL_TO_START
+                synchronizeRevisions = false
+            }
         }
-    }
-    steps {
-        update<ExecBuildStep>(0) {
-            clearConditions()
-        }
+
     }
 }
