@@ -9,6 +9,12 @@ To apply the patch, change the buildType with id = 'Build'
 accordingly, and delete the patch script.
 */
 changeBuildType(RelativeId("Build")) {
+    params {
+        add {
+            param("env.SDN_NEO4J_PASSWORD", "credentialsJSON:00e18f6a-8c39-4d3a-873f-0aa897d6bb77")
+        }
+    }
+
     dependencies {
         add(AbsoluteId("CloudRoot_Neo4jCloud_Neo4jCloudSetupIntegrationTest")) {
             snapshot {
