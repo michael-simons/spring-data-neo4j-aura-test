@@ -16,13 +16,14 @@ set -euo pipefail
 
 SRC_DIR=$(realpath $(dirname "$0"))
 WORK_DIR=$(realpath $SRC_DIR/../work)
+SDN_VERSION=6.1.4
 SDN_DIR=$WORK_DIR/spring-data-neo4j
 
 mkdir -p $WORK_DIR
 
 if [[ ! -d "$SDN_DIR" ]]
 then
-  git clone https://github.com/spring-projects/spring-data-neo4j.git $SDN_DIR
+  git clone --depth 1 --branch $SDN_VERSION https://github.com/spring-projects/spring-data-neo4j.git $SDN_DIR
 else
   echo "$SDN_DIR already exists, not checking out project."
 fi
