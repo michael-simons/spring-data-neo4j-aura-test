@@ -1,6 +1,8 @@
 package patches.buildTypes
 
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
+import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger
+import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 import jetbrains.buildServer.configs.kotlin.v2019_2.ui.*
 
 /*
@@ -12,6 +14,16 @@ changeBuildType(RelativeId("Build")) {
     params {
         add {
             param("env.SDN_NEO4J_URL", "%dep.CloudRoot_Neo4jCloud_Neo4jCloudSetupIntegrationTest.CONNECTIONURL_SECURE%")
+        }
+    }
+
+    triggers {
+        val trigger1 = find<VcsTrigger> {
+            vcs {
+            }
+        }
+        trigger1.apply {
+            enabled = false
         }
     }
 }
