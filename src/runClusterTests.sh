@@ -21,12 +21,13 @@ SDN_DIR=$WORK_DIR/spring-data-neo4j
 
 mkdir -p $WORK_DIR
 
-if [[ ! -d "$SDN_DIR" ]]
+if [[ -d $SDN_DIR ]]
 then
-  git clone --depth 1 --branch $SDN_VERSION https://github.com/spring-projects/spring-data-neo4j.git $SDN_DIR
-else
-  echo "$SDN_DIR already exists, not checking out project."
+  echo "Removing existing clone at $SDN_DIR"
+  rm -rf $SDN_DIR
 fi
+
+git clone --depth 1 --branch $SDN_VERSION https://github.com/spring-projects/spring-data-neo4j.git $SDN_DIR
 
 (
   cd $SDN_DIR
