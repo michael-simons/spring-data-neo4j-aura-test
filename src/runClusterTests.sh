@@ -16,7 +16,7 @@ set -euo pipefail
 
 SRC_DIR=$(realpath $(dirname "$0"))
 WORK_DIR=$(realpath $SRC_DIR/../work)
-SDN_VERSION=6.1.4
+SDN_VERSION=6.1.5
 SDN_DIR=$WORK_DIR/spring-data-neo4j
 
 mkdir -p $WORK_DIR
