@@ -2,7 +2,7 @@
 
 #
 # To run this script remotely type this in your shell
-# (where <args>... are the arguments you want to pass to Jbang):
+# (where <args>... are the arguments you want to pass to JBang):
 #   curl -Ls https://sh.jbang.dev | bash -s - <args>...
 #
 
@@ -28,10 +28,10 @@ resolve_symlink() {
 
 download() {
   if [ -x "$(command -v curl)" ]; then
-    curl -sLf -H "Accept: application/gzip, application/octet-stream" -o "$2" $1
+    curl -sLf -o "$2" $1
     retval=$?
   elif [ -x "$(command -v wget)" ]; then
-    wget -q --header="Accept: application/gzip, application/octet-stream" -O "$2" $1
+    wget -q -O "$2" $1
     retval=$?
   else
     echo "Error: curl or wget not found, please make sure one of them is installed" 1>&2
@@ -39,15 +39,25 @@ download() {
   fi
 }
 
-abs_jbang_dir=$(dirname $(resolve_symlink $(absolute_path $0)))
+abs_jbang_dir=/usr/local/Cellar/jbang/0.83.1/libexec/bin
+
+# todo might vary by os so can be overwritten below
+libc_type=glibc
 
 case "$(uname -s)" in
   Linux*)
-    os=linux;;
+    os=linux
+    if [ -f /etc/alpine-release ]; then
+      os=alpine-linux
+      javaVersion=16
+    fi
+    ;;
   Darwin*)
-    os=mac;;
+    os=mac
+    libc_type=libc;;
   CYGWIN*|MINGW*|MSYS*)
-    os=windows;;
+    os=windows
+    libc_type=c_std_lib;;
   AIX)
     os=aix;;
   *)
@@ -73,7 +83,8 @@ case "$(uname -m)" in
       arch=ppc64
     else
       arch=
-    fi;;
+    fi
+    ;;
 esac
 
 ## when mingw/git bash or cygwin fall out to just running the bat file.
@@ -91,7 +102,7 @@ if [ -f "$abs_jbang_dir/jbang.jar" ]; then
 elif [ -f "$abs_jbang_dir/.jbang/jbang.jar" ]; then
   jarPath=$abs_jbang_dir/.jbang/jbang.jar
 else
-  if [ ! -f "$JBDIR/bin/jbang.jar" ]; then
+  if [[ ! -f "$JBDIR/bin/jbang.jar" || ! -f "$JBDIR/bin/jbang" ]]; then
     echo "Downloading JBang..." 1>&2
     mkdir -p "$TDIR/urls"
     jburl="https://github.com/jbangdev/jbang/releases/latest/download/jbang.tar"
@@ -142,7 +153,7 @@ if [[ -z "$JAVA_EXEC" ]]; then
       fi
       mkdir -p "$TDIR/jdks"
       echo "Downloading JDK $javaVersion. Be patient, this can take several minutes..." 1>&2
-      jdkurl="https://api.adoptopenjdk.net/v3/binary/latest/$javaVersion/ga/$os/$arch/jdk/hotspot/normal/adoptopenjdk"
+      jdkurl="https://api.foojay.io/disco/v2.0/directuris?distro=aoj&libc_type=$libc_type&archive_type=tar.gz&operating_system=$os&package_type=jdk&version=$javaVersion&release_status=ga&architecture=$arch&latest=available"
       download $jdkurl "$TDIR/bootstrap-jdk.tgz"
       if [ $retval -ne 0 ]; then echo "Error downloading JDK" 1>&2; exit $retval; fi
       echo "Installing JDK $javaVersion..." 1>&2
