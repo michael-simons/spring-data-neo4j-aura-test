@@ -10,7 +10,7 @@
 
 //FILES logback.xml
 
-//DEPS org.junit.platform:junit-platform-launcher:1.7.1
+//DEPS org.junit.platform:junit-platform-launcher:1.8.1
 //DEPS org.springframework.data:spring-data-neo4j:$SDN_VERSION
 //DEPS org.springframework.data:spring-data-neo4j:$SDN_VERSION:tests@test-jar
 //$ADDITIONAL_DEPENDENCIES
