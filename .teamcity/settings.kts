@@ -18,7 +18,7 @@ project {
 	vcsRoot(SDNRepo)
 	params {
 		add {
-			param("env.SDN_NEO4J_URL", "%dep.CloudRoot_Neo4jCloud_Neo4jCloudSetupIntegrationTest.CONNECTIONURL%")
+			param("env.SDN_NEO4J_URL", "%dep.CloudRoot_Neo4jCloud_Neo4jCloudSetupIntegrationTest.CONNECTIONURL_SECURE%")
 		}
 		add {
 			param("env.SDN_NEO4J_PASSWORD", "%dep.CloudRoot_Neo4jCloud_Neo4jCloudSetupIntegrationTest.PASSWORD%")
@@ -62,6 +62,10 @@ object Build : BuildType({
 
 	triggers {
 		vcs {
+			enabled = false
+		}
+		finishBuildTrigger {
+			buildType = "CloudRoot_Neo4jCloud_Neo4jCloudSetupTestEnvironment"
 		}
 	}
 })
