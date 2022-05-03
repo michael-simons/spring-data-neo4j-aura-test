@@ -20,10 +20,10 @@ project {
 	vcsRoot(SDNRepo)
 	params {
 		add {
-			param("env.SDN_NEO4J_URL", "%dep.CloudRoot_Neo4jCloud_Neo4jCloudSetupIntegrationTest.CONNECTIONURL_SECURE%")
+			param("env.SDN_NEO4J_URL", "%dep.CloudRoot_Neo4jCloud_Neo4jPreDropTestBuilds_AuraSetupNamespaceIntegrationTestAuraDBV4.PRO_CONNECTIONURL_INSECURE%")
 		}
 		add {
-			param("env.SDN_NEO4J_PASSWORD", "%dep.CloudRoot_Neo4jCloud_Neo4jCloudSetupIntegrationTest.PASSWORD%")
+			param("env.SDN_NEO4J_PASSWORD", "%dep.CloudRoot_Neo4jCloud_Neo4jPreDropTestBuilds_AuraSetupNamespaceIntegrationTestAuraDBV4.PASSWORD%")
 		}
 	}
 }
@@ -38,7 +38,7 @@ object Build_4 : BuildType({
 	}
 
 	dependencies {
-		add(AbsoluteId("CloudRoot_Neo4jCloud_Neo4jCloudSetupIntegrationTest")) {
+		add(AbsoluteId("CloudRoot_Neo4jCloud_Neo4jPreDropTestBuilds_AuraSetupNamespaceIntegrationTestAuraDBV4")) {
 			snapshot {
 				reuseBuilds = ReuseBuilds.NO
 				onDependencyFailure = FailureAction.FAIL_TO_START
@@ -67,7 +67,7 @@ object Build_4 : BuildType({
 			enabled = false
 		}
 		finishBuildTrigger {
-			buildType = "CloudRoot_Neo4jCloud_Neo4jCloudSetupTestEnvironment"
+			buildType = "CloudRoot_Neo4jCloud_Neo4jPreDropTestBuilds_AuraSetupNamespacedItEnvironmentDynamicDropV4"
 		}
 	}
 })
