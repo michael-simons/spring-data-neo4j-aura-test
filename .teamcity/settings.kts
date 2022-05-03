@@ -14,7 +14,8 @@ object SDNRepo : GitVcsRoot({
 })
 
 project {
-	buildType(Build)
+	buildType(Build_4)
+	buildType(Build_5)
 	vcsRoot(SDNRepo)
 	params {
 		add {
@@ -26,8 +27,8 @@ project {
 	}
 }
 
-object Build : BuildType({
-	name = "Build"
+object Build_4 : BuildType({
+	name = "Build_4"
 
 	vcs {
 		root(DslContext.settingsRoot.id!!, "-:.teamcity", "+:src => bin")
@@ -66,6 +67,62 @@ object Build : BuildType({
 		}
 		finishBuildTrigger {
 			buildType = "CloudRoot_Neo4jCloud_Neo4jCloudSetupTestEnvironment"
+		}
+	}
+})
+
+object Build_5 : BuildType({
+	name = "Build_5"
+
+	vcs {
+		root(DslContext.settingsRoot.id!!, "-:.teamcity", "+:src => bin")
+		root(SDNRepo, "+:. => work/spring-data-neo4j")
+		cleanCheckout = true
+	}
+
+	params {
+		add {
+			param("env.SDN_NEO4J_URL", "%dep.CloudRoot_Neo4jCloud_Neo4jPreDropTestBuilds_AuraSetupNamespaceIntegrationTestDatabase.CONNECTIONURL_SECURE%")
+		}
+		add {
+			param("env.SDN_NEO4J_PASSWORD", "%dep.CloudRoot_Neo4jCloud_Neo4jPreDropTestBuilds_AuraSetupNamespaceIntegrationTestDatabase.PASSWORD%")
+		}
+		add {
+			param("env.SDN_BRANCH", "6.3.x")
+		}
+	}
+
+	dependencies {
+		add(AbsoluteId("CloudRoot_Neo4jCloud_Neo4jPreDropTestBuilds_AuraSetupNamespaceIntegrationTestDatabase")) {
+			snapshot {
+				reuseBuilds = ReuseBuilds.NO
+				onDependencyFailure = FailureAction.FAIL_TO_START
+				synchronizeRevisions = false
+			}
+		}
+	}
+
+	steps {
+		exec {
+			name = "Run SDN cluster tests."
+			path = "./bin/runClusterTests.sh"
+			dockerImage = "openjdk:17"
+			dockerRunParameters = "--volume /var/run/docker.sock:/var/run/docker.sock"
+		}
+	}
+
+	requirements {
+		add {
+			startsWith("cloud.amazon.agent-name-prefix", "linux")
+		}
+	}
+
+	triggers {
+		vcs {
+			enabled = false
+		}
+		finishBuildTrigger {
+			buildType = "CloudRoot_Neo4jCloud_Playground_AuraSetupNamespacedItEnvironment"
 		}
 	}
 })
