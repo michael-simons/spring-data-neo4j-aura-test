@@ -82,7 +82,7 @@ object Build_5 : BuildType({
 
 	params {
 		add {
-			param("env.SDN_NEO4J_URL", "%dep.CloudRoot_Neo4jCloud_Neo4jPreDropTestBuilds_AuraSetupNamespaceIntegrationTestDatabase.CONNECTIONURL_SECURE%")
+			param("env.SDN_NEO4J_URL", "%dep.CloudRoot_Neo4jCloud_Neo4jPreDropTestBuilds_AuraSetupNamespaceIntegrationTestDatabase.PRO_CONNECTIONURL_INSECURE%")
 		}
 		add {
 			param("env.SDN_NEO4J_PASSWORD", "%dep.CloudRoot_Neo4jCloud_Neo4jPreDropTestBuilds_AuraSetupNamespaceIntegrationTestDatabase.PASSWORD%")
