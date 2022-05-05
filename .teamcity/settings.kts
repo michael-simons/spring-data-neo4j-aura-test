@@ -42,6 +42,7 @@ object Build_4 : BuildType({
 			snapshot {
 				reuseBuilds = ReuseBuilds.NO
 				onDependencyFailure = FailureAction.ADD_PROBLEM
+				onDependencyCancel = FailureAction.ADD_PROBLEM
 				synchronizeRevisions = false
 			}
 		}
@@ -98,6 +99,7 @@ object Build_5 : BuildType({
 			snapshot {
 				reuseBuilds = ReuseBuilds.NO
 				onDependencyFailure = FailureAction.ADD_PROBLEM
+				onDependencyCancel = FailureAction.ADD_PROBLEM
 				synchronizeRevisions = false
 			}
 		}
