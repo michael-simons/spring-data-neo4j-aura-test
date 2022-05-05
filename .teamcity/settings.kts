@@ -41,7 +41,7 @@ object Build_4 : BuildType({
 		add(AbsoluteId("CloudRoot_Neo4jCloud_Neo4jPreDropTestBuilds_AuraSetupNamespaceIntegrationTestAuraDBV4")) {
 			snapshot {
 				reuseBuilds = ReuseBuilds.NO
-				onDependencyFailure = FailureAction.FAIL_TO_START
+				onDependencyFailure = FailureAction.ADD_PROBLEM
 				synchronizeRevisions = false
 			}
 		}
@@ -97,7 +97,7 @@ object Build_5 : BuildType({
 		add(AbsoluteId("CloudRoot_Neo4jCloud_Neo4jPreDropTestBuilds_AuraSetupNamespaceIntegrationTestDatabase")) {
 			snapshot {
 				reuseBuilds = ReuseBuilds.NO
-				onDependencyFailure = FailureAction.FAIL_TO_START
+				onDependencyFailure = FailureAction.ADD_PROBLEM
 				synchronizeRevisions = false
 			}
 		}
