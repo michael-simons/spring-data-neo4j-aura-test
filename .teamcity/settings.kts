@@ -109,7 +109,7 @@ object Build_5 : BuildType({
 		exec {
 			name = "Run SDN cluster tests."
 			path = "./bin/runClusterTests.sh"
-			dockerImage = "openjdk:17"
+			dockerImage = "openjdk:11"
 			dockerRunParameters = "--volume /var/run/docker.sock:/var/run/docker.sock"
 		}
 	}
