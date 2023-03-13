@@ -52,7 +52,7 @@ object Build_4 : BuildType({
 		exec {
 			name = "Run SDN cluster tests."
 			path = "./bin/runClusterTests.sh"
-			dockerImage = "openjdk:11"
+			dockerImage = "eclipse-temurin:11-jdk-jammy"
 			dockerRunParameters = "--volume /var/run/docker.sock:/var/run/docker.sock"
 		}
 	}
@@ -109,7 +109,7 @@ object Build_5 : BuildType({
 		exec {
 			name = "Run SDN cluster tests."
 			path = "./bin/runClusterTests.sh"
-			dockerImage = "openjdk:11"
+			dockerImage = "eclipse-temurin:11-jdk-jammy"
 			dockerRunParameters = "--volume /var/run/docker.sock:/var/run/docker.sock"
 		}
 	}
