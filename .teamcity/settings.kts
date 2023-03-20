@@ -96,7 +96,7 @@ object Build_5 : BuildType({
 			param("env.SDN_NEO4J_PASSWORD", "%dep.CloudRoot_Neo4jCloud_Neo4jPreDropTestBuilds_AuraSetupNamespaceIntegrationTestDatabase.PASSWORD%")
 		}
 		add {
-			param("env.SDN_BRANCH", "6.3.x")
+			param("env.SDN_BRANCH", "7.0.x")
 		}
 	}
 
