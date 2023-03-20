@@ -39,7 +39,7 @@ object Build_4 : BuildType({
 
 	 params {
                 add {
-                        param("env.SDN_BRANCH", "6.3.x")
+                        param("env.SDN_BRANCH", "6.3.8")
                 }
         }
 
