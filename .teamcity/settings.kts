@@ -37,6 +37,12 @@ object Build_4 : BuildType({
 		cleanCheckout = true
 	}
 
+	 params {
+                add {
+                        param("env.SDN_BRANCH", "6.3.x")
+                }
+        }
+
 	dependencies {
 		add(AbsoluteId("CloudRoot_Neo4jCloud_Neo4jPreDropTestBuilds_AuraSetupNamespaceIntegrationTestAuraDBV4")) {
 			snapshot {
