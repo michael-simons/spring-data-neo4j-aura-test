@@ -17,7 +17,9 @@ set -euo pipefail
 SRC_DIR=$(realpath $(dirname "$0"))
 WORK_DIR=$(realpath $SRC_DIR/../work)
 
-SDN_VERSION=${SDN_BRANCH:-'6.2.0'}
+# Use some released version
+# Using dev branches might end up in a failing build caused by third-party depedencies
+SDN_VERSION=${SDN_BRANCH:-'6.3.8'}
 SDN_DIR=$WORK_DIR/spring-data-neo4j
 
 mkdir -p $WORK_DIR
